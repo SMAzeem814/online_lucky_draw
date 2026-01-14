@@ -1,0 +1,250 @@
+/* ===========================================
+   PREMIUM ADMIN UI – FINAL CLEAN VERSION
+   Author: CS619 – Lucky Draw System
+=========================================== */
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Inter", "Segoe UI", sans-serif;
+    background: #f4f6fa;
+    color: #111827;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+/* ===========================================
+   SIDEBAR
+=========================================== */
+.sidebar {
+    position: fixed;
+    left: 18px;
+    top: 18px;
+    bottom: 18px;
+    width: 240px;
+    padding: 22px;
+    background: linear-gradient(180deg, #0b1220, #0d1726);
+    border-radius: 14px;
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.35);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    color: #e5e7eb;
+    border-radius: 8px;
+    background: transparent;
+    transition: all .2s ease;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+/* ===========================================
+   MAIN CONTENT
+=========================================== */
+.content {
+    margin-left: calc(240px + 36px);
+    padding: 34px;
+    min-height: 100vh;
+}
+
+/* Welcome box */
+.welcome-box {
+    background: linear-gradient(90deg,#0ea5e9,#38bdf8);
+    padding: 22px;
+    border-radius: 14px;
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(14,165,233,0.15);
+}
+
+/* ===========================================
+   DRAW CARDS
+=========================================== */
+.draw-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+}
+
+.draw-card h5 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.draw-card p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+/* Badges */
+.badge {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.badge.success { background: #10b981; color: white; }
+.badge.danger  { background: #ef4444; color: white; }
+.badge.primary { background: #2563eb; color: white; }
+
+/* Divider */
+.draw-card hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 12px 0;
+}
+
+/* ===========================================
+   STATUS BLOCK (Join / Winner / Expired)
+=========================================== */
+.card-status {
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* FIX: JOIN button size inside dashboard cards */
+.join-btn {
+    padding: 8px 0 !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    margin-bottom: 8px !important;
+    font-weight: 600;
+}
+
+/* ===========================================
+   ADMIN 2x2 BUTTON GRID
+=========================================== */
+.card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.card-actions .btn {
+    padding: 8px 0;
+    border-radius: 6px !important;
+    font-weight: 600;
+}
+
+/* ===========================================
+   BUTTON COLORS
+=========================================== */
+.btn-primary { background: #2563eb !important; color: white !important; }
+.btn-info    { background: #0ea5e9 !important; color: white !important; }
+.btn-warning { background: #fbbf24 !important; color: #111 !important; }
+.btn-danger  { background: #ef4444 !important; color: white !important; }
+.btn-success { background: #10b981 !important; color: white !important; }
+
+/* ===========================================
+   TABLES (Participants / Winners)
+=========================================== */
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    max-width: 1100px;
+    margin: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.table thead {
+    background: #1f2937;
+    color: white;
+}
+
+.table th,
+.table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* ===========================================
+   FORMS (Add / Edit / Join)
+=========================================== */
+.card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37,99,235,0.35);
+}
+
+/* Center forms perfectly */
+.center-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.add-draw-card,
+.join-form-card {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 16px;
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+@media (max-width: 899px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        border-radius: 0;
+        left: 0;
+        top: 0;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .col-md-4 {
+        flex: 0 0 100%;
+    }
+}

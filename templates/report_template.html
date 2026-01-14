@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Report</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+<div class="content" style="margin-left:0;">
+
+    <h2 class="fw-bold mb-3">📄 Lucky Draw Report</h2>
+
+    <p><strong>Generated At:</strong> {{ now().strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+    <div class="card p-3 mb-4">
+        <h4 class="fw-bold">{{ draw.title }}</h4>
+        <p><strong>Description:</strong> {{ draw.description }}</p>
+        <p><strong>Draw Date:</strong> {{ draw.draw_date }}</p>
+    </div>
+
+    <h5 class="fw-bold mt-4">🏆 Winner Information</h5>
+    {% if winner %}
+        <div class="alert alert-success mt-2">
+            <strong>Name:</strong> {{ winner.username }} <br>
+            <strong>Email:</strong> {{ winner.email }} <br>
+            <strong>Selected At:</strong> {{ winner.selected_at }}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">No winner selected for this draw.</div>
+    {% endif %}
+
+    <h5 class="fw-bold mt-4">👥 Participants List</h5>
+
+    <div class="table-responsive mt-2">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+                    <th>Joined At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for p in participants %}
+                <tr>
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.email }}</td>
+                    <td>{{ p.phone }}</td>
+                    <td>{{ p.payment_method }}</td>
+                    <td>{{ p.amount }}</td>
+                    <td>{{ p.joined_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

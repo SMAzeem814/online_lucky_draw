@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participants | Lucky Draw</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="content">
+
+  <div class="container-max">
+    <div class="h-section">
+      <h3>👥 Participants — {{ draw.title or '-' }}</h3>
+    </div>
+
+    {% if winner %}
+      <div class="alert alert-success">
+        <strong>🏆 Winner:</strong>
+        {{ winner.username or winner.name or winner.winner_name }} —
+        {{ winner.email }} <span class="small muted">({{ winner.selected_at }})</span>
+      </div>
+    {% endif %}
+
+    <div class="card p-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Payment</th>
+              <th>Amount</th>
+              <th>Joined At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in participants %}
+            <tr>
+              <td>{{ p.name }}</td>
+              <td>{{ p.email }}</td>
+              <td>{{ p.phone }}</td>
+              <td>{{ p.payment_method }}</td>
+              <td>{{ p.amount }}</td>
+              <td>{{ p.joined_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-3 d-flex justify-content-between">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">← Back to Dashboard</a>
+        {% if is_admin %}
+          <a href="{{ url_for('generate_report', draw_id=draw_id) }}" class="btn btn-info">Generate Report</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

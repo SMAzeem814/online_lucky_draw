@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Lucky Draw</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- GLOBAL CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar shadow-sm">
+    <h2 class="mb-4 text-center">🎯 Lucky Draw</h2>
+
+    <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+
+    {% if is_admin %}
+        <a href="{{ url_for('add_draw') }}">➕ Add Draw</a>
+        <a href="{{ url_for('past_draws') }}">📅 Past Draws</a>
+    {% endif %}
+
+    <a href="{{ url_for('winners') }}">🏆 Winners</a>
+    <a href="{{ url_for('logout') }}">🚪 Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+    <!-- Welcome Box -->
+    <div class="welcome-box mb-4 shadow-sm">
+        <h2 class="fw-bold">Welcome, {{ name }} 👋</h2>
+        <p>You have joined <strong>{{ total_joined }}</strong> draws.</p>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }} shadow-sm">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Section Title -->
+    <h3 class="fw-bold mb-3">📋 Available Lucky Draws</h3>
+
+    {% if draws %}
+        <div class="row g-4">
+
+            {% for d in draws %}
+            <div class="col-md-4 d-flex">
+                <div class="draw-card shadow-sm w-100">
+
+                    <!-- Draw Header -->
+                    <h5 class="fw-bold">{{ d.title }}</h5>
+                    <p class="text-muted small">{{ d.description or "-" }}</p>
+
+                    <p><strong>📅 Date:</strong> {{ d.draw_date }}</p>
+                    <p><strong>👥 Participants:</strong> {{ d.participants_count }}</p>
+
+                    <!-- STATUS BADGE -->
+                    {% if d.winner_selected %}
+                        <span class="badge bg-success">Winner Selected 🏆</span>
+                    {% elif d.expired %}
+                        <span class="badge bg-danger">Expired ❌</span>
+                    {% else %}
+                        <span class="badge bg-primary">Active 🎲</span>
+                    {% endif %}
+
+                    <hr>
+
+                    <!-- USER ACTION: Join / Joined -->
+                    {% if not d.expired and not d.winner_selected %}
+                        {% if d.already_joined %}
+                            <div class="alert alert-info text-center card-status">Joined ✔</div>
+                        {% else %}
+                          <a href="{{ url_for('join_draw', draw_id=d.id) }}" 
+   class="btn btn-primary join-btn">
+   Join Draw
+</a>
+
+
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- ADMIN ACTIONS -->
+                    {% if is_admin %}
+                    <div class="card-actions">
+
+                        <form action="{{ url_for('select_winner', draw_id=d.id) }}" method="post">
+                            <button class="btn btn-warning btn-sm w-100"
+                                    {% if d.winner_selected %}disabled{% endif %}>
+                                Select
+                            </button>
+                        </form>
+
+                        <a href="{{ url_for('participants', draw_id=d.id) }}"
+                           class="btn btn-info btn-sm w-100">
+                           View
+                        </a>
+
+                        <a href="{{ url_for('edit_draw', draw_id=d.id) }}"
+                           class="btn btn-primary btn-sm w-100">
+                           Edit
+                        </a>
+
+                        <form action="{{ url_for('delete_draw', draw_id=d.id) }}" method="post">
+                            <button class="btn btn-danger btn-sm w-100">Delete</button>
+                        </form>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning shadow-sm">No draws available at the moment.</div>
+    {% endif %}
+</div>
+
+</body>
+</html>

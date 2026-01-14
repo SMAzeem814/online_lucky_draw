@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Draw</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="content">
+  <div class="form-center">
+    <h3 class="fw-bold mb-3">📝 Edit Draw</h3>
+
+    <div class="card p-4">
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">Draw Title</label>
+          <input type="text" name="title" value="{{ draw.title }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-control">{{ draw.description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Draw Date</label>
+          <input type="date" name="draw_date" value="{{ draw.draw_date }}" class="form-control" required>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-large btn-primary w-100">Update Draw</button>
+          <a href="{{ url_for('dashboard') }}" class="btn btn-secondary w-100">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

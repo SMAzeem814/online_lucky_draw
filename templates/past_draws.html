@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Draws | Lucky Draw</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="content">
+  <div class="container-max">
+    <div class="h-section">
+      <h3>📅 Past Draws (Reports)</h3>
+    </div>
+
+    {% if draws %}
+      <div class="row g-4">
+        {% for d in draws %}
+        <div class="col-md-4 d-flex">
+          <div class="draw-card shadow-sm w-100">
+            <h5 class="fw-bold">{{ d.title }}</h5>
+            <p class="text-muted small">{{ d.description or "-" }}</p>
+
+            <p><strong>Date:</strong> {{ d.draw_date }}</p>
+            <p><strong>Participants:</strong> {{ d.participants_count }}</p>
+
+            {% if d.winner_selected %}
+              <span class="badge success">Winner Selected</span>
+            {% else %}
+              <span class="badge primary">No Winner</span>
+            {% endif %}
+
+            <hr>
+            <div class="card-actions">
+              <a href="{{ url_for('participants', draw_id=d.id) }}" class="btn btn-info btn-sm w-100">View</a>
+              <a href="{{ url_for('generate_report', draw_id=d.id) }}" class="btn btn-primary btn-sm w-100">Report</a>
+              <a href="{{ url_for('winners') }}" class="btn btn-success btn-sm w-100">Winners</a>
+              <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-sm w-100">Back</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">No past draws found.</div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>
