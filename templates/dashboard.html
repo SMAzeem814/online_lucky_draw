@@ -21,6 +21,9 @@
     <h2 class="mb-4 text-center">🎯 Lucky Draw</h2>
 
     <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+     <a href="{{ url_for('profile') }}" class="btn btn-outline-primary">
+    👤 My Profile
+</a>
 
     {% if is_admin %}
         <a href="{{ url_for('add_draw') }}">➕ Add Draw</a>

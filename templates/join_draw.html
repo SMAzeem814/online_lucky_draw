@@ -71,6 +71,13 @@
                 <label>Amount Paid</label>
                 <input type="number" name="amount" class="form-control" required>
             </div>
+            <!-- AGE -->
+            <div class="mb-3">
+              <label>Age</label>
+              <input type="number" name="age" id="age" class="form-control" min="1" required>
+           </div>
+
+            
 
             <!-- SUBMIT -->
             <button class="btn btn-primary w-100 mt-3">Join Draw</button>
@@ -84,7 +91,18 @@ document.getElementById("payment_method").addEventListener("change", function ()
     let bankSection = document.getElementById("bank_section");
     bankSection.style.display = (this.value === "Bank") ? "block" : "none";
 });
+
+/* AGE ELIGIBILITY CHECK */
+document.querySelector("form").addEventListener("submit", function (e) {
+    let age = document.getElementById("age").value;
+
+    if (age < 18) {
+        e.preventDefault();
+        alert("❌ You must be 18 or above to participate in the draw.");
+    }
+});
 </script>
+
 
 </body>
 </html>
